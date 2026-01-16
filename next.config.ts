@@ -1,13 +1,21 @@
+import withPWAInit from "@ducanh2912/next-pwa";
 import type { NextConfig } from "next";
 
+const withPWA = withPWAInit({
+  dest: "public",
+  disable: false,
+  // Movemos o skipWaiting e o register para o lugar correto
+  workboxOptions: {
+    skipWaiting: true,
+    clientsClaim: true,
+  },
+});
+
 const nextConfig: NextConfig = {
-  /* O basePath é o que resolve o erro 404 no subdiretório */
   basePath: "/aplicativo",
-  
-  /* Configurações extras para evitar problemas de imagem/estáticos */
   images: {
     unoptimized: true,
   },
 };
 
-export default nextConfig;
+export default withPWA(nextConfig);
